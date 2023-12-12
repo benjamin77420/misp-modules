@@ -49,7 +49,49 @@ moduleconfig = {
 # Boolean is used to simply signal that the execution has finished.
 # For blocking modules the actual boolean value determines whether we break execution
 returns = 'boolean'
+misperrors = {'error': 'Error'}
 
+# config fields that your code expects from the site admin
+moduleconfig = {
+    'params': {
+        'mattermost_hostname': {
+            'type': 'string',
+            'description': 'The Mattermost domain or URL',
+            'value': 'example.mattermost.com',
+        },
+        'bot_access_token': {
+            'type': 'string',
+            'description': 'Access token generated when you created the bot account',
+        },
+        'channel_id': {
+            'type': 'string',
+            'description': 'The channel you added the bot to',
+        },
+        'message_template': {
+            'type': 'large_string',
+            'description': 'The template to be used to generate the message to be posted',
+            'value': 'The **template** will be rendered using *Jinja2*!',
+        },
+    },
+    # Blocking modules break the exection of the current of action
+    'blocking': False,
+    # Indicates whether parts of the data passed to this module should be filtered. Filtered data can be found under the `filteredItems` key
+    'support_filters': True,
+    # Indicates whether the data passed to this module should be compliant with the MISP core format
+    'expect_misp_core_format': False,
+}
+
+
+# returns either "boolean" or "data"
+# Boolean is used to simply signal that the execution has finished.
+# For blocking modules the actual boolean value determines whether we break execution
+returns = 'boolean'
+
+moduleinfo = {'version': '0.1', 'author': 'Sami Mokaddem',
+              'description': 'Simplistic module to send message to a Mattermost channel.',
+              'module-type': ['action']}
+
+f = Faup()
 def handler(q=False):
     if q is False:
         return False
