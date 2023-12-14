@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import json
+
 from pyfaup.faup import Faup
 
 try:
@@ -24,23 +25,23 @@ moduleconfig = {
             'value': 'Qbot attacks are in the rise for EU based companies',
         },
     },
-    # Blocking modules break the exection of the current of action
+    # Blocking modules break the execution of the current of action
     'blocking': False,
-    # Indicates whether parts of the data passed to this module should be filtered. Filtered data can be found under the `filteredItems` key
+    # Indicates whether parts of the data passed to this module should be filtered. Filtered data can be found under
+    # the `filteredItems` key
     'support_filters': True,
     # Indicates whether the data passed to this module should be compliant with the MISP core format
     'expect_misp_core_format': False,
 }
 
-
 f = Faup()
+
 
 def handler(q=False):
     if q is False:
         return False
 
     request = json.loads(q)
-
 
     introduction = ("hello, the following link contains an article related to the cyber landscape, ")
     base_prompt_1 = ("I am a mid-size bank located in Belgium, I am using both Linux and Windows systems, and have "
@@ -55,9 +56,9 @@ def handler(q=False):
     prompt = "{base_prompt_1} {article_url} {format_request}".format(
         base_prompt_1=introduction, article_url=article_url, format_request=base_prompt_3)
 
-    get_openai_answer(prompt,)
+    get_openai_answer(prompt, )
 
-    #return {"results": [{"types": mispattributes["output"],
+    # return {"results": [{"types": mispattributes["output"],
     #                     "values": [get_openai_answer(prompt, request["config"].get("api_key"))]}]}
     return True
 
