@@ -20,3 +20,6 @@ venv*
 
 #vscode
 .vscode*
+
+#enviorment variables
+.env

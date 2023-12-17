@@ -3,6 +3,8 @@
 import json
 
 from pyfaup.faup import Faup
+from decouple import config
+
 
 try:
     from openai import OpenAI
@@ -38,10 +40,10 @@ f = Faup()
 
 
 def handler(q=False):
-    if q is False:
-        return False
+    #if q is False:
+     #   return False
 
-    request = json.loads(q)
+    #request = json.loads(q)
 
     introduction = ("hello, the following link contains an article related to the cyber landscape, ")
     base_prompt_1 = ("I am a mid-size bank located in Belgium, I am using both Linux and Windows systems, and have "
@@ -56,7 +58,7 @@ def handler(q=False):
     prompt = "{base_prompt_1} {article_url} {format_request}".format(
         base_prompt_1=introduction, article_url=article_url, format_request=base_prompt_3)
 
-    get_openai_answer(prompt, )
+    get_openai_answer(prompt)
 
     # return {"results": [{"types": mispattributes["output"],
     #                     "values": [get_openai_answer(prompt, request["config"].get("api_key"))]}]}
@@ -66,7 +68,7 @@ def handler(q=False):
 def get_openai_answer(prompt):
     # Set up the OpenAI API client
     client = OpenAI(
-        api_key="",  # this is also the default, it can be omitted
+        api_key=config('OPENAI_API_KEY'),  # this is also the default, it can be omitted
     )
 
     # Generate a response ; alternative use n=max_n instead of top_p
@@ -89,3 +91,6 @@ def introspection():
 def version():
     moduleinfo["config"] = moduleconfig
     return moduleinfo
+
+
+handler()
