@@ -26,6 +26,7 @@ setup(
         'tornado',
         'psutil',
         'redis>=3',
-        'pyparsing==2.4.7'
+        'pyparsing==2.4.7',
+        'pyfaup'
     ],
 )
